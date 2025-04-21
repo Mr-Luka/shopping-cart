@@ -1,4 +1,14 @@
-export default function Cart({ items, onUpdateItemQuantity }) {
+import { useContext } from 'react';
+
+// or:
+// import {use} from 'react';
+// pretty much the same, {use} can also be used in else if statments, and works with react 19 +
+
+import {CartContext} from '../store/shoping-cart-context.jsx';
+
+export default function Cart({ onUpdateItemQuantity }) {
+  const { items } = useContext(CartContext);
+
   const totalPrice = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
