@@ -2,6 +2,7 @@ import { createContext } from 'react';
 
 export const CartContext = createContext({
     items: [],
+    addItemToCart: () => {}, // this dummy function is to help with autocomplition across the board
 });
 
 // video 168
@@ -89,4 +90,49 @@ You also must add a value prop to your  <CartContext.Provider> component:
 export default function Cart({onUpdateItemQuantity })
  {items.length === 0 && <p>No items in cart!</p>}
       {items.length > 0 && (
+
+Now we need to connect the value of the CartContext.Provider value with our state, since for now its always an
+empty array, 
+and that is simple, since the content of our state in App is the same like our CartContext, we will
+put the value to be the state of shoppingCart
+<CartContext.Provider value={shoppingCart}>
+
+but we are not done yet, because if I just set my entire state object as a value here, I can definitely read it, and
+therefore we can use that context here in Cart component for example, but editing the state does not work through context yet.
+Instead I am editing the state still by passing props to our components. And of course in a perfect world we want to use Context for 
+everything, not just for reading values, but also for updatin those values. So that we also dont have to pass props if we just
+wanna update a value. And thats also pretty straightforward to do.
+For that Ill go back to manually creating my value:
+
+const ctxValue = {
+    items: shoppingCart.items,
+    addItemToCart: handleAddItemToCart
+}
+<CartContext.Provider value={ctxValue}>
+
+Here I have stored my context value in a variable, and its an object, and in there I wanna have an items array which shoyld be my
+shoppingCart.items array, and I also want to share a addItemToCart function, so a property called adItemToCart which value should be a function
+that does add a new item to the cart, and thankfully we have that function that we made before, that is the handleAddItemToCart function..
+And with that we are also exposing this function through context. And therefore any component that can read this context, so any component 
+that's in the end wrapped by this provider component ( <CartContext.Provider> )
+or that's in a child of a wrapped component, can in the end call this handle addItemToCart function through that addItemToCart property 
+in my context value.
+So this object ctxValue is a value for our CartContext, and hence now for example, in this <Product> component which wants to be able to add
+items to the cart.
+And now in the Product.jsx i can get rid of the prop onAddToCart , import CartContext and useContext, 
+and inside Product function component store it in a variable:
+const cartCtx = useContext(CartContext);
+but we can destructure it and be:
+const {addItemToCart} = useContext(CartContext);
+
+And now its this function that I want to call here on a button onClick and pass my ID to it.
+SUM:
+It all works with a help of a context, and we are now using the context not just to provide values that 
+can be read (items: shippingCart.items), but also values functions that can be called in order to then change the state the shoppingCart
+state, which then is linked to our context because its used as a value in that context.
+
+
+(to make it easier with autocimplition, i can make dummy function inside my CartContext, see begining of this file)
+
+
 */ 
