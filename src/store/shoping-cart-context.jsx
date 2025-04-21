@@ -210,4 +210,55 @@ state, which then is linked to our context because its used as a value in that c
 (to make it easier with autocimplition, i can make dummy function inside my CartContext, see begining of this file)
 
 
+To make the code leaner and cleaner, I can outsource that whole context related data management, out of the app
+component into a separate context component.
+In this file, beside exporting and creating CartContext, 
+we can also create and share a component function CartContextProvider component function, (name up to me).
+The idea is to simply grab all that state management and context value management code from inside the app
+component. Starting from where we create the state with useState, including all the functions that added to 
+the state, all the way down to where I construct this context value, Ill cut all of that from the 
+app component and move that into that CartContextProvider function, so that I am managing my state in there.
+For this to work we have to import {useState}, and in this case also: DUMMY_PRODUCTS, 
+And with that we are managing the entire state in here and we are constructing this context value here as well in 
+this component function.
+Its not a real component function yet, we can not use it as such, because we are not returning anyting 
+renderable yet.
+And what we want to return is my CartContext.Provider component, and value should be set to that ctxValue.
+<CartContext.Provider value={ctxValue}></CartContext.Provider>
+
+and now this CartContext.Provider should be wrapped around any value this custom CartContextProvider function component
+will be wrapped around.
+so in it we should destructure the children prop
+function CartContextProvider( {children} ) {
+
+}
+and then use that down in our return JSX code to in the end make sure that we wrap this CartContext.Provider with that value,
+around any JSX code around any other components, therefore, this shopping CartContextProvider will be wrapped around.
+return <CartContext.Provider value={ctxValue}>
+    {children}
+   </CartContext.Provider>
+
+So Now we can use this CartContextProvider component in our App component and in there import CartContextProvider,
+and we can ge rid of any useState, 
+and wrap it like this:
+function App() {
+  
+  return (
+    <CartContextProvider>
+      <Header/>
+      <Shop>
+        {DUMMY_PRODUCTS.map((product) => (
+          <li key={product.id}>
+            <Product {...product}/>
+          </li>
+        ))}
+      </Shop>
+    </CartContextProvider>
+  );
+}
+
+export default App;
+
+so with that we are still setting up the wrapper here but we of course got rid of all that state management logic here.
+
 */ 
