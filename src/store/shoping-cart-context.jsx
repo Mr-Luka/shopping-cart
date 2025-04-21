@@ -3,6 +3,7 @@ import { createContext } from 'react';
 export const CartContext = createContext({
     items: [],
     addItemToCart: () => {}, // this dummy function is to help with autocomplition across the board
+    updateItemQuantity: () => {},
 });
 
 // video 168
