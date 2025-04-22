@@ -3,6 +3,8 @@ import { DUMMY_PRODUCTS } from '../dummy-products.js';
 
 export const CartContext = createContext({
   items: [],
+  addItemToCart: () => {},
+  updateItemQuantity: () => {},
 })
 
 
@@ -91,7 +93,7 @@ export default function Cart({onUpdateItemQuantity })
       {cartCtx.items.length > 0 && (
 
 Even though we are setting a default value in 
-expot const CartContext = createContext({
+export const CartContext = createContext({
     items: []
 });
 
@@ -130,8 +132,8 @@ const ctxValue = {
 }
 <CartContext.Provider value={ctxValue}>
 
-Here I have stored my context value in a variable, and its an object, and in there I wanna have an items array which shoyld be my
-shoppingCart.items array, and I also want to share a addItemToCart function, so a property called adItemToCart which value should be a function
+Here I have stored my context value in a variable, and its an object, and in there I wanna have an items array which should be my
+shoppingCart.items array, and I also want to share a addItemToCart function, so a property called addItemToCart which value should be a function
 that does add a new item to the cart, and thankfully we have that function that we made before, that is the handleAddItemToCart function..
 And with that we are also exposing this function through context. And therefore any component that can read this context, so any component 
 that's in the end wrapped by this provider component ( <CartContext.Provider> )
