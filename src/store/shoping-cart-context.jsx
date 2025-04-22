@@ -2,12 +2,28 @@ import { createContext, useState } from 'react';
 import { DUMMY_PRODUCTS } from '../dummy-products.js';
 
 export const CartContext = createContext({
-    items: [],
-    addItemToCart: () => {}, // this dummy function is to help with autocomplition across the board
-    updateItemQuantity: () => {},
-});
+  items: [],
+})
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export const CartContext = createContext({
+//     items: [],
+//     addItemToCart: () => {}, // this dummy function is to help with autocomplition across the board
+//     updateItemQuantity: () => {},
+// });
 
 // video 168 ++
 /*
