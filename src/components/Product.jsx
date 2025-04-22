@@ -10,6 +10,7 @@ export default function Product({
 }) {
 
   const {addItemToCart} = useContext(CartContext);
+  
   return (
     <article className="product">
       <img src={image} alt={title} />
