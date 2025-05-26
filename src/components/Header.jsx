@@ -1,17 +1,18 @@
 import { useRef, useContext } from 'react';
-import {CartContext} from '../store/shoping-cart-context.jsx';
-
+import { CartContext } from '../store/shoping-cart-context.jsx';
 import CartModal from './CartModal.jsx';
 
 export default function Header() {
   const modal = useRef();
-
-  const {items} = useContext(CartContext);
-
+  const { items, clearCart } = useContext(CartContext); 
   const cartQuantity = items.length;
 
   function handleOpenCartClick() {
     modal.current.open();
+  }
+
+  function handleCheckout() {
+    clearCart(); 
   }
 
   let modalActions = <button>Close</button>;
@@ -20,7 +21,6 @@ export default function Header() {
     modalActions = (
       <>
         <button>Close</button>
-        <button>Checkout</button>
       </>
     );
   }
@@ -31,6 +31,7 @@ export default function Header() {
         ref={modal}
         title="Your Cart"
         actions={modalActions}
+        onCheckout={handleCheckout}
       />
       <header id="main-header">
         <div id="main-title">

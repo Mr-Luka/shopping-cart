@@ -130,7 +130,7 @@ h1 {
 }
 
 #modal {
-  width: 70%;
+  width: 30%;
   background: #d3b17b;
   border: none;
   border-radius: 6px;
@@ -266,5 +266,12 @@ h1 {
   100% {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+
+@media (max-width: 568px) {
+  #modal{
+    width: 80%;
   }
 }

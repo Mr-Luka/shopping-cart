@@ -5,11 +5,10 @@ export const CartContext = createContext({
   items: [],
   addItemToCart: () => {},
   updateItemQuantity: () => {},
-})
+  clearCart: () => {}, 
+});
 
-
-
-export default function CartContextProvider ({children}){
+export default function CartContextProvider({ children }) {
   const [shoppingCart, setShoppingCart] = useState({
     items: [],
   });
@@ -70,17 +69,24 @@ export default function CartContextProvider ({children}){
     });
   }
 
+
+  function clearCart() {
+    setShoppingCart({ items: [] });
+  }
+
   const ctxValue = {
     items: shoppingCart.items,
     addItemToCart: handleAddItemToCart,
-    updateItemQuantity: handleUpdateCartItemQuantity
+    updateItemQuantity: handleUpdateCartItemQuantity,
+    clearCart, // ✅ Expose it
   };
 
-  return <CartContext.Provider value={ctxValue}>
-    {children}
-  </CartContext.Provider>
+  return (
+    <CartContext.Provider value={ctxValue}>
+      {children}
+    </CartContext.Provider>
+  );
 }
-
 
 
 
